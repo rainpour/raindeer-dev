@@ -262,7 +262,7 @@ The result would be:
 Antlers creates an Abstract Syntax Tree composed of the following `AntlerNode`s:
 
 **Leaf nodes:**
-- `PropNode`
+- `SoloNode`
 - `VarNode`
 
 **Branch nodes:**
