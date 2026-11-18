@@ -183,6 +183,36 @@ Which outputs:
 
 **See also:** [Templating](/docs/templating#components)
 
+### Redirect
+
+Return `redirect` to send the browser to another address, with a 303 so it gets the address after a form:
+
+```ruby
+class FeedbackNode < LowNode
+  include Controller
+
+  def post(event: ReceiveEvent)
+    submit(event.body)
+    redirect('/thanks')
+  end
+end
+```
+
+## Cookies
+
+Read the cookies a request sent with `event.cookies`, and set one with `set_cookie`, which is `HttpOnly`, `Secure` and `SameSite=Lax` unless you say otherwise:
+
+```ruby
+class ThemeNode < LowNode
+  def initialize(event:)
+    @theme = event.cookies['theme'] || 'light'
+    set_cookie('theme', @theme, max_age: 365 * 24 * 60 * 60, http_only: false)
+  end
+end
+```
+
+Expire a cookie with `max_age: 0`, and add any other header with `response_headers.add('cache-control', 'no-store')`.
+
 ## Calling other code
 
 Nodes are designed for intercepting the request-response layer and then handing off control to your domain-specific models, presenters and business logic.
