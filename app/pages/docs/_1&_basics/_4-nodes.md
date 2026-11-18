@@ -273,6 +273,8 @@ class UserNode < LowNode
 end
 ```
 
+`event.path` is the address the request came to, like `/123`, without its query, and `event.query` its query as a hash. `event.route.path` is the route it matched, like `/:user_id`.
+
 ### Render level args
 
 If the node has been rendered by another node then any [props](/docs/templating#props) passed to that node are available as keyword arguments in the node's `initialize` or `render` methods.
