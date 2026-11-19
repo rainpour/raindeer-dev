@@ -83,6 +83,23 @@ class HomeNode < LowNode
           <div class="add"><span class="num">{"7"}</span><span class="sign">{"+"}</span>{"Repository pattern"}</div>
         </div>
       </div>
+
+      <div id="case-study">
+        <h2>{"Technical Case Study"}</h2>
+        <p class="intro">{"Anti-forgery tokens, which turn away a form posted from another site."}</p>
+        <ul>
+          <li><strong>{"It's built from events."}</strong>{" Checking on the way in and setting the cookie on the way out is the push-and-pull the docs describe. There's no middleware stack, and the router went back to only routing."}</li>
+          <li><strong>{"Each gem only does its own part:"}</strong>
+            <ul>
+              <li>{"Antlers only knows it's given a token."}</li>
+              <li>{"Observers only knows about order."}</li>
+              <li>{"LowEvent only knows about the response going back."}</li>
+              <li>{"Raindeer only knows about requests, cookies and its secret."}</li>
+            </ul>
+          </li>
+        </ul>
+        <p><a href="/docs/middleware" role="button"><i class="bi bi-arrow-repeat"></i>{"See Middleware"}</a></p>
+      </div>
     <{ :Layout }>
   end
 end

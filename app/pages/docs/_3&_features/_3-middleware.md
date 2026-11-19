@@ -39,17 +39,19 @@ These additional observers will receive a `:render`/`:receive`/`HTTP_VERB` actio
 > [!TIP]
 > Event observers should only be redefined once, so keep them in a central location. **Example:** `app/events/request_event`
 
-On the way back out, the request event passes itself to each of its observers with a `response` method, with the response it took in `response_event`. That's where to add to every response, like a header or a cookie: [UNRELEASED]
+On the way back out, each observer the request passed is given the response it took, last first, when it has a `response` method. That's `RequestEvent`'s return action, and where to add to every response, like a header or a cookie: [UNRELEASED]
 
 ```ruby
 module MyHeaders
-  def self.response(event:)
-    event.response_event&.response&.headers&.add('x-frame-options', 'DENY')
+  def self.response(event:, result:)
+    result.response.headers.add('x-frame-options', 'DENY') if result.respond_to?(:response)
   end
 end
 ```
 
-Raindeer's own `Rain::FormTokens` works this way: it turns away a form posted from another site on the way in, and sets its cookie on the way out.
+Code deep inside answering a request, like a template, finds its event with `RequestEvent.current`. Its `store` keeps what an observer needs on the way back out.
+
+Raindeer's own `Rain::FormTokens` works this way: it turns away a form posted from another site on the way in. When a page gives a browser a new key, it keeps the key in the store and sets its cookie on the way out.
 
 ### 4. `RouteEvent`
 
