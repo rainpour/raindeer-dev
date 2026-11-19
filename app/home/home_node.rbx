@@ -6,6 +6,7 @@ class HomeNode < LowNode
   def initialize(event:)
     @title = 'An event-driven and compositional web framework'
     @cards = Raindeer.pages.list(folder: 'cards')
+    @case_study = Raindeer.pages.list(folder: 'home').first
   end
 
   def render(event:)
@@ -85,20 +86,7 @@ class HomeNode < LowNode
       </div>
 
       <div id="case-study">
-        <h2>{"Technical Case Study"}</h2>
-        <p class="intro">{"Anti-forgery tokens, which turn away a form posted from another site."}</p>
-        <ul>
-          <li><strong>{"It's built from events."}</strong>{" A RequestEvent observer checks each form on the way in, and the routed node sets the cookie with the response it already makes. There's no middleware stack, and the router went back to only routing."}</li>
-          <li><strong>{"Each gem only does its own part:"}</strong>
-            <ul>
-              <li>{"Antlers only knows it's given a token, and hands on what its render context has."}</li>
-              <li>{"Observers only knows about order."}</li>
-              <li>{"LowNode only knows its render context, which has the routed node."}</li>
-              <li>{"Raindeer only knows about requests, cookies and its secret."}</li>
-            </ul>
-          </li>
-        </ul>
-        <p><a href="/docs/middleware" role="button"><i class="bi bi-arrow-repeat"></i>{"See Middleware"}</a></p>
+        <{ @case_study.content }>
       </div>
     <{ :Layout }>
   end
