@@ -88,12 +88,12 @@ class HomeNode < LowNode
         <h2>{"Technical Case Study"}</h2>
         <p class="intro">{"Anti-forgery tokens, which turn away a form posted from another site."}</p>
         <ul>
-          <li><strong>{"It's built from events."}</strong>{" Checking on the way in and setting the cookie on the way out is the push-and-pull the docs describe. There's no middleware stack, and the router went back to only routing."}</li>
+          <li><strong>{"It's built from events."}</strong>{" A RequestEvent observer checks each form on the way in, and the routed node sets the cookie with the response it already makes. There's no middleware stack, and the router went back to only routing."}</li>
           <li><strong>{"Each gem only does its own part:"}</strong>
             <ul>
-              <li>{"Antlers only knows it's given a token."}</li>
+              <li>{"Antlers only knows it's given a token, and hands on what its render context has."}</li>
               <li>{"Observers only knows about order."}</li>
-              <li>{"LowEvent only knows about the response going back."}</li>
+              <li>{"LowNode only knows its render context, which has the routed node."}</li>
               <li>{"Raindeer only knows about requests, cookies and its secret."}</li>
             </ul>
           </li>
