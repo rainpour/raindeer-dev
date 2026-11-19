@@ -35,6 +35,10 @@ class HomeNode < LowNode
         </div>
       </div>
 
+      <div id="case-study">
+        <{ @case_study.content }>
+      </div>
+
       <h2 align="center">{"Diff"}</h2>
 
       <div id="diff">
@@ -83,10 +87,6 @@ class HomeNode < LowNode
           <div class="empty"></div>
           <div class="add"><span class="num">{"7"}</span><span class="sign">{"+"}</span>{"Repository pattern"}</div>
         </div>
-      </div>
-
-      <div id="case-study">
-        <{ @case_study.content }>
       </div>
     <{ :Layout }>
   end

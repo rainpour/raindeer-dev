@@ -11,7 +11,7 @@ Raindeer's architecture through the flow of a simple <a href='/docs/templating#f
 <{ :form }>
 ```
 
-This form lives in a LowNode which returns a ResponseEvent. But you get to this form the browser makes a request; A RequestEvent.
+This form lives in a LowNode which returns a ResponseEvent. But before you get to this form the browser makes a request:
 
 ```mermaid
 sequenceDiagram
@@ -48,6 +48,6 @@ sequenceDiagram
 - LowNode only knows its render context, which has the routed node
 - Raindeer only knows about requests, cookies and its secret
 
-In other frameworks something like securing a form would ultimately be mixed in with the router, controller and view layers. With Raindeer and observers there is a clean seperation of concerns.
+In other frameworks something like securing a form would ultimately be mixed in with the router, controller and view layers. With Raindeer and observers there is a clean separation of concerns.
 
 <p><a href="/docs/middleware" role="button"><i class="bi bi-arrow-repeat"></i>See Middleware</a></p>

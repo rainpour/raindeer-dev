@@ -169,17 +169,10 @@
 }
 
 #case-study {
-  margin: 4rem auto;
+  margin: 0 auto 4rem;
   max-width: 860px;
-  padding: 1.5rem 1rem;
-  border: 1px solid var(--rd-border);
-  border-radius: 16px;
-  background: var(--rd-surface);
-  @media (min-width: 768px) {
-    padding: 2rem;
-  }
   h2 {
-    font-size: 1.3rem;
+    text-align: center;
   }
   p,
   li {
@@ -187,8 +180,5 @@
   }
   ul ul {
     margin-top: 0.5rem;
-  }
-  p:last-child {
-    margin-bottom: 0;
   }
 }
