@@ -39,7 +39,7 @@ These additional observers will receive a `:render`/`:receive`/`HTTP_VERB` actio
 > [!TIP]
 > Event observers should only be redefined once, so keep them in a central location. **Example:** `app/events/request_event`
 
-On the way back out, each observer the request passed is given the response it took, last first, when it has a `response` method. That's `RequestEvent`'s return action, and where to add to every response, like a header or a cookie: [UNRELEASED]
+On the way back out, each observer the request passed is given the response it took, last first, when it has a `response` method. That's `RequestEvent`'s return action, and where to add to every response, like a header or a cookie:
 
 ```ruby
 module MyHeaders
@@ -51,7 +51,7 @@ end
 
 #### Cross-origin protection
 
-Raindeer's own `Rain::CrossOriginProtection` observes `RequestEvent` first. It turns away a request that another site's page makes. That could be a form it posts to yours with a visitor's cookies: [UNRELEASED]
+Raindeer's own `Rain::CrossOriginProtection` observes `RequestEvent` first. It turns away a request that another site's page makes. That could be a form it posts to yours with a visitor's cookies:
 
 - **Reading always goes through.** GET, HEAD and OPTIONS shouldn't change anything.
 - **Browsers say where a request came from** in `Sec-Fetch-Site` and a page can't change it. `same-origin` goes through and so does `none`, which is typed in or bookmarked. `cross-site` and `same-site` get a 403, as another subdomain is only `same-site`.

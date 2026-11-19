@@ -142,7 +142,7 @@ Change the `POST` method to `GET`, and give the form HTML attributes, with:
 <{ :form }>
 ```
 
-### Forms from other sites [UNRELEASED]
+### Forms from other sites
 
 Another site can put a form on its page that posts to yours. The browser sends your cookies with it, so a visitor who's logged in could be made to do something without knowing. Raindeer turns those away with a 403 before they reach your nodes, so forms need no hidden token. See [Cross-origin protection](/docs/middleware#cross-origin-protection).
 
