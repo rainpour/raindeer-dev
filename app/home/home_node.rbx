@@ -73,10 +73,6 @@ class HomeNode < LowNode
         </div>
         <div class="diff-row">
           <div class="empty"></div>
-          <div class="add"><span class="num">{"4"}</span><span class="sign">{"+"}</span>{"Auto loaded files"}</div>
-        </div>
-        <div class="diff-row">
-          <div class="empty"></div>
           <div class="add"><span class="num">{"5"}</span><span class="sign">{"+"}</span>{"Events"}</div>
         </div>
         <div class="diff-row">
