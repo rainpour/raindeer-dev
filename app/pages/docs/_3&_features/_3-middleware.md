@@ -49,9 +49,7 @@ module MyHeaders
 end
 ```
 
-Code deep inside answering a request, like a template, finds its event with `RequestEvent.current`. Its `store` keeps what an observer needs on the way back out.
-
-Raindeer's own `Rain::FormTokens` works this way: it turns away a form posted from another site on the way in. When a page gives a browser a new key, it keeps the key in the store and sets its cookie on the way out.
+Raindeer's own `Rain::FormTokens` observes `RequestEvent` first, to turn away a form posted from another site on the way in. A browser's new key doesn't need the way out: the form tag is given the routed node, the one the request was routed to, in its render context, and sets the cookie with its response.
 
 ### 4. `RouteEvent`
 
