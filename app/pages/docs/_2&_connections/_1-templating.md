@@ -132,7 +132,6 @@ Forms can be created in a compositional way, mixing both Antlers syntax with reg
 Antlers generates additional markup behind the scenes:
 - Sets the form's `action` to `/submit`
 - Sets the form's `method` to `POST`
-- Adds a hidden `form_token` field, an anti-forgery token [UNRELEASED]
 
 Change the `POST` method to `GET`, and give the form HTML attributes, with:
 
@@ -143,24 +142,9 @@ Change the `POST` method to `GET`, and give the form HTML attributes, with:
 <{ :form }>
 ```
 
-A GET form gets no token, as it shouldn't change anything.
+### Forms from other sites [UNRELEASED]
 
-### Anti-forgery tokens [UNRELEASED]
-
-Another site can put a form on its page that posts to yours. The browser sends your cookies with it, so a visitor who's logged in could be made to do something without knowing. Raindeer stops that for every form you make with `<{ form: }>`, with nothing more to write:
-
-- **Each browser gets a key** in a `form_key` cookie and each POST form gets a token made from it with your app's secret. Another site can't read the cookie or know the secret, so it can't make the token.
-- **Forged forms are turned away first.** `Rain::FormTokens` observes `RequestEvent` before the router and answers a form posted without its token with a 403. It never reaches your nodes.
-- **Only what a form can send is checked:** URL-encoded, multipart and plain text bodies. A JSON body, like a webhook's, goes through as before.
-
-The key is set by the node the request was routed to. Its template's render context has it as `routed_node`, and so do the components it renders, like a layout with a logout form. The first form on a page gives a new browser its key with `routed_node.set_cookie` and the rest of the page's forms use the same key. So the cookie goes out with the response the node already makes.
-
-Observe `Status[403]` to show your own page for a forged form. Without one Raindeer answers with a plain 403 that says to reload the page and send the form again.
-
-Set the secret with `RAIN_SECRET`. Without it a random one lasts until the server restarts, so a form opened before a restart is turned away after it.
-
-> [!NOTE]
-> A page with a POST form has its visitor's token in it. Don't cache it and share it between visitors, and leave such pages out of `rain static` builds.
+Another site can put a form on its page that posts to yours. The browser sends your cookies with it, so a visitor who's logged in could be made to do something without knowing. Raindeer turns those away with a 403 before they reach your nodes, so forms need no hidden token. See [Cross-origin protection](/docs/middleware#cross-origin-protection).
 
 ### Label [UNRELEASED]
 

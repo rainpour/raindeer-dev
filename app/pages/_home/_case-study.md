@@ -11,43 +11,35 @@ Raindeer's architecture through the flow of a simple <a href='/docs/templating#f
 <{ :form }>
 ```
 
-This form lives in a LowNode which returns a ResponseEvent. But before you get to this form the browser makes a request:
+When the browser sends this form it makes a request, which goes through each part of Raindeer in turn:
 
 ```mermaid
 sequenceDiagram
   autonumber
   participant RequestEvent
-  participant FormTokens as Rain::FormTokens
+  participant Protection as CrossOriginProtection
   participant Router
-  participant Node as Routed node
-  participant Form as Antlers form tag
+  participant Node
   participant ResponseEvent
 
-  RequestEvent->>FormTokens: request(event:), before the router
-  alt A form posted without its token
-    FormTokens->>ResponseEvent: 403
-  else Anything else, like a page or a form with its token
-    FormTokens-->>RequestEvent: nil, so the request goes on
+  RequestEvent->>Protection: request(event:), before the router
+  alt Sec-Fetch-Site or Origin says another site sent it
+    Protection->>ResponseEvent: 403
+  else This site sent it, or no browser did
+    Protection-->>RequestEvent: nil, so the request goes on
     RequestEvent->>Router: request(event:)
-    Router->>Node: RouteEvent
-    Node->>Form: render, with context event: and routed_node:
-    Form->>FormTokens: Antlers.form_token.call(event:, routed_node:)
-    opt The browser has no form_key cookie
-      FormTokens->>Node: routed_node.set_cookie('form_key', key)
-    end
-    FormTokens-->>Form: token
-    Form-->>Node: the form with a hidden form_token field
-    Node->>ResponseEvent: the page, with the cookie in its headers
+    Router->>Node: ReceiveEvent, with the form's body
+    Node->>ResponseEvent: a redirect, like to /cart
   end
 ```
 
-**Each component is single responsibility:**
+**Each part of the request-response lifecycle has a single responsibility:**
+- [Observers](/docs/observers#ordering) only knows about order, which puts the protection before the router
+- [CrossOriginProtection](/docs/middleware#cross-origin-protection) only knows where a request came from
 - [The router](/docs/routing) only worries about routing
-- [Templates](/docs/templating#forms) only knows it's given a token, and hands on what its render context has
-- [Observers](/docs/observers#ordering) only knows about order
-- [LowNode](/docs/nodes) only knows its render context, which has the routed node
-- [Raindeer](/docs/middleware) only knows about requests, cookies and its secret
+- [LowNode](/docs/nodes) only knows how to answer the event it's given
+- [Templates](/docs/templating#forms) only render the form, which needs no hidden token
 
 In other frameworks something like securing a form would ultimately be mixed in with the router, controller and view layers. With Raindeer and observers there is a clean separation of concerns.
 
-<p><a href="/docs/middleware" role="button"><i class="bi bi-arrow-repeat"></i>See Middleware</a></p>
+<p><a href="/docs/middleware#cross-origin-protection" role="button"><i class="bi bi-arrow-repeat"></i>See Middleware</a></p>

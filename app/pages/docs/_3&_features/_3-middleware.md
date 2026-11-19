@@ -49,7 +49,16 @@ module MyHeaders
 end
 ```
 
-Raindeer's own `Rain::FormTokens` observes `RequestEvent` first, to turn away a form posted from another site on the way in. A browser's new key doesn't need the way out: the form tag is given the routed node, the one the request was routed to, in its render context, and sets the cookie with its response.
+#### Cross-origin protection
+
+Raindeer's own `Rain::CrossOriginProtection` observes `RequestEvent` first. It turns away a request another site's page makes, like a form it posts to yours with a visitor's cookies: [UNRELEASED]
+
+- **Reading, like GET, HEAD and OPTIONS, always goes through**, as it shouldn't change anything.
+- **Browsers say where a request came from** in `Sec-Fetch-Site`, which a page can't change. `same-origin` and `none`, which is typed in or bookmarked, go through. `cross-site` and `same-site`, like another subdomain, get a 403.
+- **Older browsers send `Origin` instead**, which has to match the request's host.
+- **A request with neither isn't from a browser**, like a webhook's or `curl`'s, so it goes through.
+
+Observe `Status[403]` to show your own page. Without one Raindeer answers with a plain 403. There's no token, cookie or secret, so pages with forms can be cached and built with `rain static`.
 
 ### 4. `RouteEvent`
 
