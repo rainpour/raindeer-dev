@@ -23,11 +23,11 @@ sequenceDiagram
   participant ResponseEvent
 
   RequestEvent->>Protection: request(event:), before the router
-  alt This site sent it, or no browser did
+  alt Good Path
     Protection->>Router: nil, so RequestEvent asks its next observer
     Router->>Node: ReceiveEvent, with the form's body
     Node->>ResponseEvent: a redirect, like to /cart
-  else Sec-Fetch-Site or Origin says another site sent it
+  else Bad Path
     Protection->>ResponseEvent: 403
   end
 ```
