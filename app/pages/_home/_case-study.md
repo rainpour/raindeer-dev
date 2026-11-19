@@ -42,11 +42,11 @@ sequenceDiagram
 ```
 
 **Each component is single responsibility:**
-- The router only worries about routing
-- Antlers only knows it's given a token, and hands on what its render context has
-- Observers only knows about order
-- LowNode only knows its render context, which has the routed node
-- Raindeer only knows about requests, cookies and its secret
+- [The router](/docs/routing) only worries about routing
+- [Templates](/docs/templating#forms) only knows it's given a token, and hands on what its render context has
+- [Observers](/docs/observers#ordering) only knows about order
+- [LowNode](/docs/nodes) only knows its render context, which has the routed node
+- [Raindeer](/docs/middleware) only knows about requests, cookies and its secret
 
 In other frameworks something like securing a form would ultimately be mixed in with the router, controller and view layers. With Raindeer and observers there is a clean separation of concerns.
 
