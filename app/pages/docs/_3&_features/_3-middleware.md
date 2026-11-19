@@ -39,6 +39,18 @@ These additional observers will receive a `:render`/`:receive`/`HTTP_VERB` actio
 > [!TIP]
 > Event observers should only be redefined once, so keep them in a central location. **Example:** `app/events/request_event`
 
+On the way back out, the request event passes itself to each of its observers with a `response` method, with the response it took in `response_event`. That's where to add to every response, like a header or a cookie: [UNRELEASED]
+
+```ruby
+module MyHeaders
+  def self.response(event:)
+    event.response_event&.response&.headers&.add('x-frame-options', 'DENY')
+  end
+end
+```
+
+Raindeer's own `Rain::FormTokens` works this way: it turns away a form posted from another site on the way in, and sets its cookie on the way out.
+
 ### 4. `RouteEvent`
 
 Because you can listen to "mid-nodes" along a route, you can `observe '/'` with a `side_effect` action/method to intercept **every** routed request.

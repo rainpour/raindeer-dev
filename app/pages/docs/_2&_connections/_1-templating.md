@@ -132,38 +132,28 @@ Forms can be created in a compositional way, mixing both Antlers syntax with reg
 Antlers generates additional markup behind the scenes:
 - Sets the form's `action` to `/submit`
 - Sets the form's `method` to `POST`
-- Adds an anti-forgery token to prevent CSRF [UNRELEASED]
+- Adds a hidden `form_token` field, an anti-forgery token [UNRELEASED]
 
-Change the `POST` method to `GET` with:
+Change the `POST` method to `GET`, and give the form HTML attributes, with:
 
 ```ruby
-<{ form: '/search' method: 'GET' }>
-  <input type="search">
-  <input type="submit" value="search">
+<{ form: '/search' method: 'GET' class='search' }>
+  <input type="search" name="q">
+  <input type="submit" value="Search">
 <{ :form }>
 ```
 
-Forms can be created in a compositional way, mixing both Antlers syntax with regular form elements:
+A GET form gets no token, as it shouldn't change anything.
 
-```ruby
-<{ form: '/submit' }>
-  <input type="submit" value="Submit">
-<{ :form }>
-```
+### Anti-forgery tokens [UNRELEASED]
 
-Antlers generates additional markup behind the scenes:
-- Sets the form's `action` to `/submit`
-- Sets the form's `method` to `POST`
-- Adds an anti-forgery token to prevent CSRF [UNRELEASED]
+Another site can put a form on its page that posts to yours, and the browser sends your cookies with it, so a visitor who's logged in could be made to do something without knowing. Raindeer stops that for every form you make with `<{ form: }>`:
 
-Change the `POST` method to `GET` with:
+- Each browser gets a random key in a `form_key` cookie, and each POST form a token made from it with your app's secret. Another site can't read the cookie or know the secret, so it can't make the token.
+- `Rain::FormTokens` observes `RequestEvent` before anything else, and answers a form posted without its token with a 403, so it never reaches your nodes.
+- Only bodies a form on another site can send are checked: URL-encoded, multipart and plain text. A JSON body, like a webhook's, goes through as before.
 
-```ruby
-<{ form: '/search' method: 'GET' }>
-  <input type="search">
-  <input type="submit" value="search">
-<{ :form }>
-```
+Set the secret with `RAIN_SECRET`. Without it a random one lasts until the server restarts, so a form opened before a restart is turned away after it.
 
 ### Label [UNRELEASED]
 
