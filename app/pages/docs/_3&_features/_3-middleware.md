@@ -51,14 +51,14 @@ end
 
 #### Cross-origin protection
 
-Raindeer's own `Rain::CrossOriginProtection` observes `RequestEvent` first. It turns away a request another site's page makes, like a form it posts to yours with a visitor's cookies: [UNRELEASED]
+Raindeer's own `Rain::CrossOriginProtection` observes `RequestEvent` first. It turns away a request that another site's page makes. That could be a form it posts to yours with a visitor's cookies: [UNRELEASED]
 
-- **Reading, like GET, HEAD and OPTIONS, always goes through**, as it shouldn't change anything.
-- **Browsers say where a request came from** in `Sec-Fetch-Site`, which a page can't change. `same-origin` and `none`, which is typed in or bookmarked, go through. `cross-site` and `same-site`, like another subdomain, get a 403.
-- **Older browsers send `Origin` instead**, which has to match the request's host.
-- **A request with neither isn't from a browser**, like a webhook's or `curl`'s, so it goes through.
+- **Reading always goes through.** GET, HEAD and OPTIONS shouldn't change anything.
+- **Browsers say where a request came from** in `Sec-Fetch-Site` and a page can't change it. `same-origin` goes through and so does `none`, which is typed in or bookmarked. `cross-site` and `same-site` get a 403, as another subdomain is only `same-site`.
+- **Older browsers send `Origin` instead** and it has to match the request's host.
+- **A request with neither isn't from a browser.** It goes through, like a webhook or `curl`.
 
-Observe `Status[403]` to show your own page. Without one Raindeer answers with a plain 403. There's no token, cookie or secret, so pages with forms can be cached and built with `rain static`.
+Observe `Status[403]` to show your own page. Without one Raindeer answers with a plain 403. There's no token or cookie or secret. So pages with forms can be cached and built with `rain static`.
 
 ### 4. `RouteEvent`
 
