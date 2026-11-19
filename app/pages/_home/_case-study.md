@@ -24,8 +24,7 @@ sequenceDiagram
 
   RequestEvent->>Protection: request(event:), before the router
   alt This site sent it, or no browser did
-    Protection-->>RequestEvent: nil, so the request goes on
-    RequestEvent->>Router: request(event:)
+    Protection->>Router: nil, so RequestEvent asks its next observer
     Router->>Node: ReceiveEvent, with the form's body
     Node->>ResponseEvent: a redirect, like to /cart
   else Sec-Fetch-Site or Origin says another site sent it
