@@ -133,7 +133,7 @@ end
 
 ### JSON
 
-`Hash` return values are converted to a JSON string.
+A returned `Hash` or `Array` is sent as JSON, with the `application/json` content type.
 
 ```ruby
 class MyNode < LowNode
@@ -141,6 +141,18 @@ class MyNode < LowNode
     {
       error: "This framework is too awesome, burns my eyes."
     }
+  end
+end
+```
+
+### Response
+
+Return a `Protocol::HTTP::Response` you made yourself and it's sent as it is, with its status, headers and body. `Response[]` takes its headers as a hash:
+
+```ruby
+class FeedNode < LowNode
+  def render
+    Protocol::HTTP::Response[200, { 'content-type' => 'application/rss+xml', 'cache-control' => 'public, max-age=3600' }, [Feed.xml]]
   end
 end
 ```
@@ -198,6 +210,32 @@ class FeedbackNode < LowNode
 end
 ```
 
+## Two ways to respond
+
+A node can respond in two styles, and you can use whichever suits it:
+
+- **Functional:** call `add_header` and `set_cookie` as you go, then return a literal, like a string, a hash or an array. The node sends the headers with it.
+- **Object oriented:** build a `Protocol::HTTP::Response` with its status, headers and body, and return that. Headers you added with `add_header` or `set_cookie` are added to it too.
+
+```ruby
+# Functional: add the header, then return a hash, which is sent as JSON.
+class SearchIndexNode < LowNode
+  def render
+    add_header('cache-control', 'public, max-age=3600')
+    { recipes: Recipe.titles }
+  end
+end
+
+# Object oriented: return the whole response, with its headers given when it's made.
+class SearchIndexNode < LowNode
+  def render
+    Protocol::HTTP::Response[200, { 'content-type' => 'application/json', 'cache-control' => 'public, max-age=3600' }, [JSON.generate(recipes: Recipe.titles)]]
+  end
+end
+```
+
+The functional style keeps a node short, as Raindeer turns what it returns into a response. The object oriented style gives full control, like a status or content type of its own.
+
 ## Cookies
 
 Read the cookies a request sent with `event.cookies`, and set one with `set_cookie`, which is `HttpOnly`, `Secure` and `SameSite=Lax` unless you say otherwise:
@@ -211,7 +249,7 @@ class ThemeNode < LowNode
 end
 ```
 
-Expire a cookie with `max_age: 0`, and add any other header with `response_headers.add('cache-control', 'no-store')`.
+Expire a cookie with `max_age: 0`, and add any other header with `add_header('cache-control', 'no-store')`.
 
 ## Calling other code
 
