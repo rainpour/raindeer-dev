@@ -21,6 +21,8 @@ system_mode: true
 
 Or with the `RAIN_SYSTEM=1` and `RAIN_SYSTEM=0` environment variables.
 
+Raindeer serves the system pages' own files like their styles. Each link carries Raindeer's version so a cache fetches them fresh after you update. If your app has its own copy in `public/system` you can delete it.
+
 > [!WARNING]
 > Anyone can see the system pages when they're on. They show your routes and requests and your app's memory. In production only let administrators see them. With [LowAuth](https://github.com/low-rb/lowauth) add `allows :admin` to every node in `System`. Then pages added later are covered too:
 >
