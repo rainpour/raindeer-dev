@@ -43,10 +43,10 @@ A healthy app's observed keys stay about the same. If they climb with every requ
 ## Live stats
 
 The dashboard also shows:
-- How many visitors came in the last 5 minutes. That's the different addresses requests came from, as a proxy like Cloudflare passes them on
+- How many visitors came in the last 5 minutes. That's the different addresses requests came from, as a proxy like Cloudflare passes them on. Raindeer keeps only a hash of each address and forgets it after 5 minutes. An address isn't quite a person: people behind one office network count once and bots count too
 - How many requests are being answered right now
 - How many connections are open. Behind a proxy like Caddy these are the proxy's own connections, which it keeps open and reuses, so they aren't people
-- How many requests came in the last minute
+- How many requests came in the last minute. Both counts see every request, so they aren't limited to the last 100
 - The typical and slowest response times
 - How many threads are running
 - How many objects Ruby holds and how many times it has collected garbage
