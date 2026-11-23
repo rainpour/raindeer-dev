@@ -42,6 +42,8 @@ A healthy app's observed keys stay about the same. If they climb with every requ
 
 ## Live stats
 
+The dashboard's numbers refresh each second while the page is in view. The system pages' own requests aren't counted, so the refreshing doesn't show up as traffic.
+
 The dashboard also shows:
 - How many visitors came in the last 5 minutes. That's the different addresses requests came from, as a proxy like Cloudflare passes them on. Raindeer keeps only a hash of each address and forgets it after 5 minutes. An address isn't quite a person: people behind one office network count once and bots count too
 - How many requests are being answered right now
