@@ -336,6 +336,54 @@ end
 <strong>Yes</strong>
 ```
 
+## Intervals
+
+A node can run code on a schedule. Observe an `Interval` and define `tick`:
+
+```ruby
+class CleanupNode < LowNode
+  observe Interval[every_minute: 5]
+
+  def tick
+    Sessions.delete_expired
+  end
+end
+```
+
+Count in `every_second`, `every_minute`, `every_hour` or `every_day`. Add `at_hour:` to only run during one hour of the day:
+
+```ruby
+observe Interval[every_minute: 3, at_hour: 2] # Every 3 minutes from 2am to 3am.
+```
+
+Ticks run on a thread of their own. So a slow job never holds up a request. Jobs run one at a time. A job that takes longer than its interval skips the turns it missed. It doesn't run twice at once.
+
+What `tick` returns is ignored. Nothing responds to an interval.
+
+> [!NOTE]
+> A job runs on a different thread from requests. Anything it shares with requests must be safe to use from two threads at once. A `Thread::Queue` is a good way to hand work over.
+
+For example a node can draw images ahead of time and keep them ready for requests:
+
+```ruby
+class ImagePool < LowNode
+  observe Interval[every_second: 1]
+
+  READY = Thread::Queue.new
+
+  # A request takes a ready image or nil when there are none.
+  def self.take
+    READY.pop(true)
+  rescue ThreadError
+    nil
+  end
+
+  def tick
+    (5 - READY.size).times { READY << Image.draw }
+  end
+end
+```
+
 ## Parallelism [UNRELEASED]
 
 Speed up CPU-bound work with parallelism. Thanks to the immutable nature of nodes we can process them in parallel using the `<{ parallelize: }>` syntax. Your data must be immutable or be able to be copied by Raindeer. This means reducing your reliance on global state, such as global dependency injection via [Providers](/docs/dependencies#providers), in favour of local dependency injection via [Plugs](/docs/dependencies#plugs).

@@ -47,7 +47,7 @@ In your pipeline definition you can just observe time itself:
 
 ```ruby
 class UserUpdatePipeline < Pipeline
-  observe Interval[every_minute: 3, hour: 2]
+  observe Interval[every_minute: 3, at_hour: 2]
 end
 ```
 
