@@ -43,6 +43,9 @@ A healthy app's observed keys stay about the same. If they climb with every requ
 ## Live stats
 
 The dashboard also shows:
+- How many visitors came in the last 5 minutes. That's the different addresses requests came from, as a proxy like Cloudflare passes them on
+- How many requests are being answered right now
+- How many connections are open. Behind a proxy like Caddy these are the proxy's own connections, which it keeps open and reuses, so they aren't people
 - How many requests came in the last minute
 - The typical and slowest response times
 - How many threads are running
@@ -56,4 +59,4 @@ The dashboard lists each [Interval](/docs/nodes#intervals) your app observes. It
 
 The Requests page lists the last 100 requests. The newest is first. Each one shows its path and status and how long it took and how many events it caused.
 
-Open a request to see its event tree. That's every event the request caused in the order they happened. Each event sits under the event that caused it. Raindeer already keeps these trees in its event pool so showing them costs nothing extra.
+A GET has a Visit button that opens its page. Open a request to see its event tree. That's every event the request caused in the order they happened. Each event sits under the event that caused it. Raindeer already keeps these trees in its event pool so showing them costs nothing extra.
