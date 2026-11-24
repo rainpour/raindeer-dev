@@ -57,7 +57,7 @@ Set the language your templates are written in with the `source_locale` option i
 source_locale: 'de'
 ```
 
-Each request is rendered in the most preferred language from its `Accept-Language` header that is either the `source_locale` or has translations. A regional language like `es-MX` falls back to `es`. When no language matches, the request is rendered in the `source_locale`, with strings as they're written.
+Each request is rendered in the most preferred language from its `Accept-Language` header that is either the `source_locale` or has translations. A regional language like `es-MX` falls back to `es`. When no language matches, the request is rendered in its [site's](/docs/sites) language, which is the `source_locale` unless the site sets another.
 
 With `source_locale: 'en'` and `es` translations:
 
