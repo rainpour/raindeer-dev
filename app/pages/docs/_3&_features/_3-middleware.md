@@ -60,6 +60,20 @@ Raindeer's own `Rain::CrossOriginProtection` observes `RequestEvent` first. It t
 
 Observe `Status[403]` to show your own page. Without one Raindeer answers with a plain 403. There's no token or cookie or secret. So pages with forms can be cached and built with `rain static`.
 
+#### Rate limits
+
+`Rain::RateLimit` observes `RequestEvent` next. It turns away a visitor who asks for a path too often. Limit a path that's costly to answer, like a search that queries the database each time. In `config/config.yaml` give each path the requests a minute each visitor may make to it and the paths under it:
+```yaml
+rate_limits:
+  /search: 30
+```
+
+- **A visitor is their address** as a proxy like Cloudflare or Caddy passes it on. A request without one, like while developing, isn't limited.
+- **The count starts again each minute.** A visitor over the limit gets a 429 with `Retry-After` saying how many seconds are left.
+- **It's kept in memory**, so each process counts its own and a restart starts again.
+
+Observe `Status[429]` to show your own page. Without one Raindeer answers with a plain 429.
+
 ### 4. `RouteEvent`
 
 Because you can listen to "mid-nodes" along a route, you can `observe '/'` with a `side_effect` action/method to intercept **every** routed request.
