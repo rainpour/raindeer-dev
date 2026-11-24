@@ -46,7 +46,7 @@ The dashboard's numbers refresh each second while the page is in view. The syste
 
 The dashboard also shows:
 - How many visitors came in the last 5 minutes. That's the different addresses requests came from, as a proxy like Cloudflare passes them on. Raindeer keeps only a hash of each address and forgets it after 5 minutes. An address isn't quite a person: people behind one office network count once and bots count too
-- How many requests are being answered right now
+- Actions per second, averaged over the last minute. That's every event that runs, like a request, a node rendering, a data query or an interval's tick. It counts the system pages' own requests too, so it shows the work the app is really doing
 - How many connections are open. Behind a proxy like Caddy these are the proxy's own connections, which it keeps open and reuses, so they aren't people
 - Requests per second, averaged over the last minute, and the busiest single second in that minute. These and visitors see every request, so they aren't limited to the last 100
 - The typical and slowest response times
