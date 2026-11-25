@@ -62,7 +62,7 @@ Observe `Status[403]` to show your own page. Without one Raindeer answers with a
 
 #### Rate limits
 
-`Rain::RateLimit` observes `RequestEvent` just before the router. It turns away a visitor who asks for pages too often. Your files are answered before it, so a page's images and styles never count. In `config/config.yaml` give each path the requests a minute each visitor may make to it and the paths under it:
+`Rain::RateLimit` observes `RequestEvent` just before the router. It turns away a visitor who asks for pages too often. Your files are answered before it, so a page's images and styles never count. Nor do the [system pages](/docs/system), as the dashboard refreshes itself each second. In `config/config.yaml` give each path the requests a minute each visitor may make to it and the paths under it:
 ```yaml
 rate_limits:
   /: 120
