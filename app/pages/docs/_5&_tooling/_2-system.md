@@ -51,7 +51,7 @@ The dashboard also shows:
 - Requests per second, averaged over the last minute, and the busiest single second in that minute. These and visitors see every request, so they aren't limited to the last 100
 - The typical and slowest response times
 - How many threads are running
-- How many requests a [rate limit](/docs/middleware#rate-limits) turned away in the last 5 minutes
+- How many requests a [rate limit](/docs/middleware#rate-limits) denied in the last 24 hours
 - How many objects Ruby holds and how many times it has collected garbage
 
 Live objects get a line each minute too. Like observed keys they should level off. If they keep climbing then something keeps objects it doesn't need.

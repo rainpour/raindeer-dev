@@ -74,7 +74,7 @@ rate_limits:
 - **The count starts again each minute.** A visitor over the limit gets a 429 with `Retry-After` saying how many seconds are left.
 - **It's kept in memory**, so each process counts its own and a restart starts again.
 
-Observe `Status[429]` to show your own page. Without one Raindeer answers with a plain 429. The [system dashboard](/docs/system) shows how many were turned away.
+Observe `Status[429]` to show your own page. Without one Raindeer answers with a plain 429. The [system dashboard](/docs/system) shows how many were denied in the last 24 hours.
 
 ### 4. `RouteEvent`
 
