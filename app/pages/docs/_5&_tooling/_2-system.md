@@ -50,6 +50,7 @@ The dashboard also shows:
 - How many connections are open. Behind a proxy like Caddy these are the proxy's own connections, which it keeps open and reuses, so they aren't people
 - Requests per second, averaged over the last minute, and the busiest single second in that minute. These and visitors see every request, so they aren't limited to the last 100
 - The typical and slowest response times
+- How many threads are running
 - How many requests a [rate limit](/docs/middleware#rate-limits) turned away in the last 5 minutes
 - How many objects Ruby holds and how many times it has collected garbage
 
@@ -59,6 +60,6 @@ The dashboard lists each [Interval](/docs/nodes#intervals) your app observes. It
 
 ## Requests
 
-The Requests page lists the last 100 requests. The newest is first. Each one shows its path and status and how long it took and how many events it caused. Found requests show first. Missing shows the 404s and Limited shows those a rate limit turned away.
+The Requests page lists the last 100 requests. The newest is first. Each one shows its path and status and how long it took and how many events it caused. Found requests show first. Missing shows the 404s and Denied shows those a rate limit turned away.
 
 A GET has a Visit button that opens its page. Open a request to see its event tree. That's every event the request caused in the order they happened. Each event sits under the event that caused it. Raindeer already keeps these trees in its event pool so showing them costs nothing extra.
