@@ -62,17 +62,19 @@ Observe `Status[403]` to show your own page. Without one Raindeer answers with a
 
 #### Rate limits
 
-`Rain::RateLimit` observes `RequestEvent` next. It turns away a visitor who asks for a path too often. Limit a path that's costly to answer, like a search that queries the database each time. In `config/config.yaml` give each path the requests a minute each visitor may make to it and the paths under it:
+`Rain::RateLimit` observes `RequestEvent` just before the router. It turns away a visitor who asks for pages too often. Your files are answered before it, so a page's images and styles never count. In `config/config.yaml` give each path the requests a minute each visitor may make to it and the paths under it:
 ```yaml
 rate_limits:
+  /: 120
   /search: 30
 ```
 
+- **The most specific path's limit applies.** So `/` limits every page and `/search` is limited more, as it queries the database each time. Each path counts on its own, so searching doesn't use up a visitor's pages.
 - **A visitor is their address** as a proxy like Cloudflare or Caddy passes it on. A request without one, like while developing, isn't limited.
 - **The count starts again each minute.** A visitor over the limit gets a 429 with `Retry-After` saying how many seconds are left.
 - **It's kept in memory**, so each process counts its own and a restart starts again.
 
-Observe `Status[429]` to show your own page. Without one Raindeer answers with a plain 429.
+Observe `Status[429]` to show your own page. Without one Raindeer answers with a plain 429. The [system dashboard](/docs/system) shows how many were turned away.
 
 ### 4. `RouteEvent`
 
