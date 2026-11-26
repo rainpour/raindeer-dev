@@ -28,7 +28,7 @@ PATH
 PATH
   remote: ../lowkey
   specs:
-    lowkey (0.7.4)
+    lowkey (0.7.5)
       prism
 
 PATH
@@ -345,7 +345,7 @@ CHECKSUMS
   logger (1.7.0) sha256=196edec7cc44b66cfb40f9755ce11b392f21f7967696af15d274dde7edff0203
   lowdata (0.4.4) sha256=b9da740081f8fe5a4707fc8b8e810c1be33cbb57d20daaeceaab9f261f84d64d
   lowevent (0.8.10)
-  lowkey (0.7.4)
+  lowkey (0.7.5)
   lowloop (0.8.17)
   lownode (0.5.14)
   lowtype (1.7.1)
