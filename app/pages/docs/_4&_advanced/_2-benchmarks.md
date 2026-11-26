@@ -298,15 +298,102 @@ Static routes are nested like REST resources, where a resource has its own route
   </tbody>
 </table>
 
+### Templates
+
+The route tables above return a plain string. Here, Raindeer and Roda both render the same list of 10 users, with each value HTML escaped: Raindeer as an RBX template and Roda as an ERB template with its `render` plugin.
+
+<table>
+  <thead>
+    <tr>
+      <th>Server</th>
+      <th>Template (req/s)</th>
+      <th>Mean latency (Template)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Roda</strong> + Falcon</td>
+      <td>17,557.09</td>
+      <td>2.848 ms</td>
+    </tr>
+    <tr>
+      <td><strong>Raindeer</strong> + LowLoop</td>
+      <td>9,457.89</td>
+      <td>5.287 ms</td>
+    </tr>
+    <tr>
+      <td><strong>Raindeer</strong> + Falcon</td>
+      <td>9,288.25</td>
+      <td>5.383 ms</td>
+    </tr>
+  </tbody>
+</table>
+
 <em><sup>*</sup>LowLoop is the default server for Raindeer</em>
 
 **See:** [raindeer-benchmarks](https://github.com/rainpour/raindeer-benchmarks) repo
 
 ## IO-bound
 
-Routing becomes a much less share of the time when it comes to IO, so we'll just benchmark with many routes.
+Each request to `/slow` waits 50ms, like a database query, then returns a plain string. One request at a time could do 20 requests per second, so the most a server can do is 20 times the number of requests sent at once. Every app has the same 1000 routes as above.
 
-### 100 routes
+Every server here waits on requests with Ruby's fiber scheduler, so they all reach that limit at 50 and 200 at once. The differences show at 1000 at once, where each server's CPU cost per request starts to count.
+
+<table>
+  <thead>
+    <tr>
+      <th>Server</th>
+      <th>/slow, 50 at once (req/s)</th>
+      <th>/slow, 200 at once (req/s)</th>
+      <th>/slow, 1000 at once (req/s)</th>
+      <th>Mean latency (/slow, 1000 at once)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Roda</strong> + Falcon</td>
+      <td>954.83</td>
+      <td>3,735.00</td>
+      <td>12,836.48</td>
+      <td>77.903 ms</td>
+    </tr>
+    <tr>
+      <td><strong>Raindeer</strong> + Falcon</td>
+      <td>958.59</td>
+      <td>3,802.60</td>
+      <td>9,679.67</td>
+      <td>103.309 ms</td>
+    </tr>
+    <tr>
+      <td><strong>Raindeer</strong> + LowLoop</td>
+      <td>946.41</td>
+      <td>3,747.76</td>
+      <td>8,468.39</td>
+      <td>118.086 ms</td>
+    </tr>
+    <tr>
+      <td><strong>Sinatra</strong> + Falcon</td>
+      <td>954.52</td>
+      <td>3,776.84</td>
+      <td>7,311.70</td>
+      <td>136.767 ms</td>
+    </tr>
+    <tr>
+      <td><strong>Hanami</strong> + Falcon</td>
+      <td>942.52</td>
+      <td>3,619.49</td>
+      <td>5,379.23</td>
+      <td>185.900 ms</td>
+    </tr>
+    <tr>
+      <td><strong>Rails</strong> + Falcon</td>
+      <td>961.06</td>
+      <td>2,640.92</td>
+      <td>2,581.94</td>
+      <td>387.306 ms</td>
+    </tr>
+  </tbody>
+</table>
 
 ## Integrations
 
