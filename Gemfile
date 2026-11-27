@@ -4,9 +4,9 @@ source 'https://rubygems.org'
 
 # Use a local raindeer checkout in dev when there is one, like the local gems below.
 if File.exist?(File.expand_path('../raindeer', __dir__))
-  gem 'raindeer', '>= 1.0.56', path: '../raindeer'
+  gem 'raindeer', '>= 1.0.57', path: '../raindeer'
 else
-  gem 'raindeer', '>= 1.0.56'
+  gem 'raindeer', '>= 1.0.57'
 end
 
 group :development do
