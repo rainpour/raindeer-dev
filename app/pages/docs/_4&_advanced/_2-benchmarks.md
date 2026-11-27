@@ -7,7 +7,7 @@ published: true
 
 **Configuration:**
 - Ruby 4.0.9, 1 thread/fiber
-- Raindeer 1.0.57 with LowType's strip mode, which removes types as classes load
+- Raindeer 1.0.59 with LowType's strip mode, which removes types as classes load
 - Each column requests the middle route of its group at that path depth, a typical request rather than the best or worst case for a router that checks routes in order
 - Sinatra checks every route one by one in the order they are declared, so its speed depends on where a route sits in the list. Roda checks routes one by one too, but only within each branch of its routing tree
 
@@ -34,51 +34,51 @@ Static routes are nested like REST resources, where a resource has its own route
   <tbody>
     <tr>
       <td><strong>Roda</strong> + Falcon</td>
-      <td>21,334.40</td>
-      <td>17,562.32</td>
-      <td>18,326.63</td>
-      <td>18,176.45</td>
-      <td>2.751 ms</td>
+      <td>21,290.37</td>
+      <td>17,661.20</td>
+      <td>18,201.62</td>
+      <td>18,365.98</td>
+      <td>2.722 ms</td>
     </tr>
     <tr>
       <td><strong>Raindeer</strong> + LowLoop</td>
-      <td>19,375.06</td>
-      <td>16,674.17</td>
-      <td>15,583.34</td>
-      <td>14,616.45</td>
-      <td>3.421 ms</td>
+      <td>18,687.80</td>
+      <td>17,336.94</td>
+      <td>16,757.67</td>
+      <td>16,205.17</td>
+      <td>3.085 ms</td>
     </tr>
     <tr>
       <td><strong>Raindeer</strong> + Falcon</td>
-      <td>17,234.80</td>
-      <td>15,791.53</td>
-      <td>14,880.92</td>
-      <td>14,187.42</td>
-      <td>3.524 ms</td>
+      <td>17,146.48</td>
+      <td>16,336.05</td>
+      <td>15,836.00</td>
+      <td>14,791.40</td>
+      <td>3.380 ms</td>
     </tr>
     <tr>
       <td><strong>Sinatra</strong> + Falcon</td>
-      <td>10,837.05</td>
-      <td>9,201.21</td>
-      <td>7,864.11</td>
-      <td>7,005.06</td>
-      <td>7.138 ms</td>
+      <td>10,946.81</td>
+      <td>9,261.49</td>
+      <td>7,841.52</td>
+      <td>7,020.88</td>
+      <td>7.122 ms</td>
     </tr>
     <tr>
       <td><strong>Hanami</strong> + Falcon</td>
-      <td>6,782.79</td>
-      <td>6,801.74</td>
-      <td>6,747.23</td>
-      <td>6,702.79</td>
-      <td>7.460 ms</td>
+      <td>6,800.47</td>
+      <td>6,791.27</td>
+      <td>6,759.36</td>
+      <td>6,708.14</td>
+      <td>7.454 ms</td>
     </tr>
     <tr>
       <td><strong>Rails</strong> + Falcon</td>
-      <td>2,775.92</td>
-      <td>2,762.51</td>
-      <td>2,743.24</td>
-      <td>2,740.10</td>
-      <td>18.248 ms</td>
+      <td>2,789.38</td>
+      <td>2,782.46</td>
+      <td>2,751.49</td>
+      <td>2,731.34</td>
+      <td>18.306 ms</td>
     </tr>
   </tbody>
 </table>
@@ -102,57 +102,57 @@ Static routes are nested like REST resources, where a resource has its own route
   <tbody>
     <tr>
       <td><strong>Roda</strong> + Falcon</td>
-      <td>21,732.09</td>
-      <td>19,738.78</td>
-      <td>19,197.16</td>
-      <td>17,247.40</td>
-      <td>16,957.67</td>
-      <td>2.949 ms</td>
+      <td>22,551.55</td>
+      <td>20,320.31</td>
+      <td>19,875.88</td>
+      <td>17,774.11</td>
+      <td>17,403.23</td>
+      <td>2.873 ms</td>
     </tr>
     <tr>
       <td><strong>Raindeer</strong> + LowLoop</td>
-      <td>18,461.17</td>
-      <td>16,532.34</td>
-      <td>14,867.84</td>
-      <td>13,983.76</td>
-      <td>13,106.37</td>
-      <td>3.815 ms</td>
+      <td>18,496.78</td>
+      <td>17,216.68</td>
+      <td>15,891.43</td>
+      <td>15,601.31</td>
+      <td>14,777.66</td>
+      <td>3.383 ms</td>
     </tr>
     <tr>
       <td><strong>Raindeer</strong> + Falcon</td>
-      <td>16,973.52</td>
-      <td>15,488.54</td>
-      <td>14,220.25</td>
-      <td>13,524.60</td>
-      <td>12,668.85</td>
-      <td>3.947 ms</td>
+      <td>16,841.88</td>
+      <td>16,036.29</td>
+      <td>14,920.56</td>
+      <td>14,690.47</td>
+      <td>13,985.56</td>
+      <td>3.575 ms</td>
     </tr>
     <tr>
       <td><strong>Sinatra</strong> + Falcon</td>
-      <td>11,073.69</td>
-      <td>9,855.04</td>
-      <td>9,337.37</td>
-      <td>6,545.04</td>
-      <td>6,354.21</td>
-      <td>7.869 ms</td>
+      <td>11,020.19</td>
+      <td>9,925.48</td>
+      <td>9,334.38</td>
+      <td>6,588.27</td>
+      <td>6,427.53</td>
+      <td>7.779 ms</td>
     </tr>
     <tr>
       <td><strong>Hanami</strong> + Falcon</td>
-      <td>6,707.61</td>
-      <td>6,667.42</td>
-      <td>6,144.30</td>
-      <td>6,128.63</td>
-      <td>5,838.21</td>
-      <td>8.564 ms</td>
+      <td>6,720.59</td>
+      <td>6,640.66</td>
+      <td>6,185.38</td>
+      <td>6,140.41</td>
+      <td>5,854.65</td>
+      <td>8.540 ms</td>
     </tr>
     <tr>
       <td><strong>Rails</strong> + Falcon</td>
-      <td>2,766.51</td>
-      <td>2,744.32</td>
-      <td>2,704.33</td>
-      <td>2,694.09</td>
-      <td>2,645.22</td>
-      <td>18.902 ms</td>
+      <td>2,766.36</td>
+      <td>2,762.90</td>
+      <td>2,699.66</td>
+      <td>2,690.40</td>
+      <td>2,676.02</td>
+      <td>18.684 ms</td>
     </tr>
   </tbody>
 </table>
@@ -174,52 +174,52 @@ Static routes are nested like REST resources, where a resource has its own route
   </thead>
   <tbody>
     <tr>
-      <td><strong>Roda</strong> + Falcon</td>
-      <td>21,816.46</td>
-      <td>8,824.83</td>
-      <td>17,666.16</td>
-      <td>17,997.04</td>
-      <td>2.778 ms</td>
+      <td><strong>Raindeer</strong> + LowLoop</td>
+      <td>18,328.36</td>
+      <td>16,813.22</td>
+      <td>16,729.71</td>
+      <td>16,040.64</td>
+      <td>3.117 ms</td>
     </tr>
     <tr>
-      <td><strong>Raindeer</strong> + LowLoop</td>
-      <td>17,720.71</td>
-      <td>15,991.89</td>
-      <td>15,363.11</td>
-      <td>14,411.88</td>
-      <td>3.469 ms</td>
+      <td><strong>Roda</strong> + Falcon</td>
+      <td>21,711.07</td>
+      <td>8,843.61</td>
+      <td>17,630.36</td>
+      <td>17,703.24</td>
+      <td>2.824 ms</td>
     </tr>
     <tr>
       <td><strong>Raindeer</strong> + Falcon</td>
-      <td>16,674.75</td>
-      <td>15,214.78</td>
-      <td>14,362.71</td>
-      <td>13,712.42</td>
-      <td>3.646 ms</td>
+      <td>16,697.64</td>
+      <td>15,755.56</td>
+      <td>15,285.12</td>
+      <td>15,111.31</td>
+      <td>3.309 ms</td>
     </tr>
     <tr>
       <td><strong>Hanami</strong> + Falcon</td>
-      <td>6,752.54</td>
-      <td>6,561.95</td>
-      <td>6,634.74</td>
-      <td>6,625.73</td>
-      <td>7.546 ms</td>
+      <td>6,678.99</td>
+      <td>6,624.84</td>
+      <td>6,585.38</td>
+      <td>6,636.50</td>
+      <td>7.534 ms</td>
     </tr>
     <tr>
       <td><strong>Sinatra</strong> + Falcon</td>
-      <td>10,822.20</td>
-      <td>4,174.08</td>
-      <td>1,810.63</td>
-      <td>1,724.42</td>
-      <td>28.995 ms</td>
+      <td>10,777.62</td>
+      <td>4,158.10</td>
+      <td>1,790.16</td>
+      <td>1,706.17</td>
+      <td>29.305 ms</td>
     </tr>
     <tr>
       <td><strong>Rails</strong> + Falcon</td>
-      <td>2,727.76</td>
-      <td>2,722.02</td>
-      <td>2,705.64</td>
-      <td>2,693.63</td>
-      <td>18.562 ms</td>
+      <td>2,731.45</td>
+      <td>2,721.34</td>
+      <td>2,710.47</td>
+      <td>2,685.76</td>
+      <td>18.617 ms</td>
     </tr>
   </tbody>
 </table>
@@ -243,57 +243,57 @@ Static routes are nested like REST resources, where a resource has its own route
   <tbody>
     <tr>
       <td><strong>Raindeer</strong> + LowLoop</td>
-      <td>18,233.62</td>
-      <td>16,219.50</td>
-      <td>14,690.91</td>
-      <td>13,813.76</td>
-      <td>12,794.10</td>
-      <td>3.908 ms</td>
+      <td>17,912.38</td>
+      <td>16,868.00</td>
+      <td>15,564.26</td>
+      <td>15,485.16</td>
+      <td>14,847.74</td>
+      <td>3.368 ms</td>
     </tr>
     <tr>
       <td><strong>Raindeer</strong> + Falcon</td>
-      <td>16,888.35</td>
-      <td>15,379.69</td>
-      <td>14,070.87</td>
-      <td>13,153.86</td>
-      <td>12,433.63</td>
-      <td>4.021 ms</td>
+      <td>16,636.93</td>
+      <td>15,840.98</td>
+      <td>14,920.38</td>
+      <td>14,157.15</td>
+      <td>13,688.20</td>
+      <td>3.653 ms</td>
     </tr>
     <tr>
       <td><strong>Roda</strong> + Falcon</td>
-      <td>21,757.93</td>
-      <td>14,277.14</td>
-      <td>13,860.24</td>
-      <td>10,015.18</td>
-      <td>9,909.50</td>
-      <td>5.046 ms</td>
+      <td>21,669.15</td>
+      <td>14,275.49</td>
+      <td>13,912.20</td>
+      <td>10,056.99</td>
+      <td>9,901.61</td>
+      <td>5.050 ms</td>
     </tr>
     <tr>
       <td><strong>Hanami</strong> + Falcon</td>
-      <td>6,756.89</td>
-      <td>6,712.08</td>
-      <td>6,243.84</td>
-      <td>6,250.15</td>
-      <td>5,910.57</td>
-      <td>8.459 ms</td>
+      <td>6,811.50</td>
+      <td>6,763.20</td>
+      <td>6,256.98</td>
+      <td>6,250.61</td>
+      <td>5,936.97</td>
+      <td>8.422 ms</td>
     </tr>
     <tr>
       <td><strong>Sinatra</strong> + Falcon</td>
-      <td>10,756.62</td>
-      <td>4,236.13</td>
-      <td>4,352.46</td>
-      <td>1,700.91</td>
-      <td>1,699.81</td>
-      <td>29.415 ms</td>
+      <td>10,694.80</td>
+      <td>4,222.24</td>
+      <td>4,360.78</td>
+      <td>1,709.45</td>
+      <td>1,695.39</td>
+      <td>29.492 ms</td>
     </tr>
     <tr>
       <td><strong>Rails</strong> + Falcon</td>
-      <td>2,726.10</td>
-      <td>2,721.06</td>
-      <td>2,691.24</td>
-      <td>2,677.18</td>
-      <td>2,623.38</td>
-      <td>19.059 ms</td>
+      <td>2,729.90</td>
+      <td>2,714.41</td>
+      <td>2,670.72</td>
+      <td>2,667.04</td>
+      <td>2,623.19</td>
+      <td>19.061 ms</td>
     </tr>
   </tbody>
 </table>
@@ -313,18 +313,18 @@ The route tables above return a plain string. Here, Raindeer and Roda both rende
   <tbody>
     <tr>
       <td><strong>Roda</strong> + Falcon</td>
-      <td>18,373.40</td>
-      <td>2.721 ms</td>
+      <td>18,187.99</td>
+      <td>2.749 ms</td>
     </tr>
     <tr>
       <td><strong>Raindeer</strong> + LowLoop</td>
-      <td>14,293.22</td>
-      <td>3.498 ms</td>
+      <td>14,587.68</td>
+      <td>3.428 ms</td>
     </tr>
     <tr>
       <td><strong>Raindeer</strong> + Falcon</td>
-      <td>13,529.14</td>
-      <td>3.696 ms</td>
+      <td>13,925.66</td>
+      <td>3.590 ms</td>
     </tr>
   </tbody>
 </table>
@@ -352,45 +352,45 @@ Every server here waits on requests with Ruby's fiber scheduler, so they all rea
   <tbody>
     <tr>
       <td><strong>Roda</strong> + Falcon</td>
-      <td>921.59</td>
-      <td>3,671.64</td>
-      <td>14,151.52</td>
-      <td>70.664 ms</td>
-    </tr>
-    <tr>
-      <td><strong>Raindeer</strong> + Falcon</td>
-      <td>931.30</td>
-      <td>3,701.46</td>
-      <td>10,722.05</td>
-      <td>93.266 ms</td>
+      <td>925.14</td>
+      <td>3,685.90</td>
+      <td>14,337.82</td>
+      <td>69.746 ms</td>
     </tr>
     <tr>
       <td><strong>Raindeer</strong> + LowLoop</td>
-      <td>934.04</td>
-      <td>3,364.61</td>
-      <td>9,314.92</td>
-      <td>107.355 ms</td>
+      <td>931.84</td>
+      <td>3,390.63</td>
+      <td>10,800.16</td>
+      <td>92.591 ms</td>
+    </tr>
+    <tr>
+      <td><strong>Raindeer</strong> + Falcon</td>
+      <td>929.35</td>
+      <td>3,696.37</td>
+      <td>10,352.12</td>
+      <td>96.599 ms</td>
     </tr>
     <tr>
       <td><strong>Sinatra</strong> + Falcon</td>
-      <td>922.76</td>
-      <td>3,697.44</td>
-      <td>7,466.18</td>
-      <td>133.937 ms</td>
+      <td>927.44</td>
+      <td>3,660.01</td>
+      <td>7,264.17</td>
+      <td>137.662 ms</td>
     </tr>
     <tr>
       <td><strong>Hanami</strong> + Falcon</td>
-      <td>904.92</td>
-      <td>3,466.78</td>
-      <td>5,069.24</td>
-      <td>197.268 ms</td>
+      <td>901.73</td>
+      <td>3,574.02</td>
+      <td>4,947.51</td>
+      <td>202.122 ms</td>
     </tr>
     <tr>
       <td><strong>Rails</strong> + Falcon</td>
-      <td>938.40</td>
-      <td>2,601.43</td>
-      <td>2,577.97</td>
-      <td>387.903 ms</td>
+      <td>938.41</td>
+      <td>2,656.42</td>
+      <td>2,598.55</td>
+      <td>384.831 ms</td>
     </tr>
   </tbody>
 </table>
