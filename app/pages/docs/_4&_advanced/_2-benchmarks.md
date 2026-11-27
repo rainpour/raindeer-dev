@@ -300,7 +300,7 @@ Static routes are nested like REST resources, where a resource has its own route
 
 ### Templates
 
-The route tables above return a plain string. Here, Raindeer and Roda both render the same list of 10 users, with each value HTML escaped: Raindeer as an RBX template and Roda as an ERB template with its `render` plugin.
+The route tables above return a plain string. Here, Raindeer and Roda both render the same list of 10 users, with each value HTML escaped: Raindeer as an RBX template and Roda as an ERB template with its `render` plugin. Raindeer uses Antlers 1.5.11, which compiles RBX templates to Ruby on their first render, like ERB.
 
 <table>
   <thead>
@@ -313,18 +313,18 @@ The route tables above return a plain string. Here, Raindeer and Roda both rende
   <tbody>
     <tr>
       <td><strong>Roda</strong> + Falcon</td>
-      <td>17,557.09</td>
-      <td>2.848 ms</td>
+      <td>17,751.47</td>
+      <td>2.817 ms</td>
     </tr>
     <tr>
       <td><strong>Raindeer</strong> + LowLoop</td>
-      <td>9,457.89</td>
-      <td>5.287 ms</td>
+      <td>12,644.91</td>
+      <td>3.954 ms</td>
     </tr>
     <tr>
       <td><strong>Raindeer</strong> + Falcon</td>
-      <td>9,288.25</td>
-      <td>5.383 ms</td>
+      <td>11,479.59</td>
+      <td>4.356 ms</td>
     </tr>
   </tbody>
 </table>
